@@ -1,10 +1,21 @@
-import './App.css';
+//Components
+// import Nav from 'components/Nav';
+// import Footer from 'components/Footer';
+import AppRoutes from 'config/AppRoutes';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Henry Videogames</h1>
-    </div>
+
+//Style
+import "App.css";
+import Nav from 'components/Nav';
+
+function App() { 
+
+  return(
+  <>
+  <Nav />
+  <AppRoutes />
+  {/* <Footer /> */}
+  </>
   );
 }
 
