@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     description:{
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     release:{
@@ -32,6 +32,9 @@ module.exports = (sequelize) => {
     platforms:{
       type: DataTypes.ARRAY(DataTypes.STRING),
     },
+    created:{
+      type:DataTypes.BOOLEAN
+    }
     
   });
 };

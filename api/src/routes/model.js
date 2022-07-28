@@ -5,8 +5,20 @@ const API_KEY = '81b401f5c0c34feeab73bb2cebf36a4e'
 const {Videogames, Genres} = sequelize_models
 
 const getApiInfo = async () =>{
-    const apiUrl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
-    const apiInfo = apiUrl.data.results.filter((e,idx)=>idx<100).map(oneGame=>{
+    let apiData =[]
+    let response = await axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}`)
+    
+    while(apiData.length<100){
+        apiData=[...apiData, ...response.data.results]
+
+        if(!response.data.next){
+            return apiData
+        }       
+        response = await axios.get(response.data.next) 
+
+    }
+
+    let apiInfo = apiData.slice(0,100).map(oneGame=>{
         return{
             id:oneGame.id,
             name:oneGame.name,
@@ -15,25 +27,33 @@ const getApiInfo = async () =>{
             rating:oneGame.rating,
             ratings_count:oneGame.ratings_count,
             platforms:oneGame.platforms.map(e => {return {name: e.platform.name, id:e.platform.id}}),
-            genres:oneGame.genres.map(e=>e.name)
+            genres:oneGame.genres.map(e=>e.name),
+            created:false
         }
     })
     return apiInfo
+    
 }
 
-const getDbInfo = async () =>{
-    return await Videogames.findAll({
-        include:{
-            model: Genres,
-            attributes: ['name'],
-            through:{
-                attributes:[]
+const getDbInfo = async (name) =>{
+    if (!name){
+        return await Videogames.findAll({
+            include:{
+                model: Genres,
+                attributes: ['name'],
+                through:{
+                    attributes:[]
+                }
             }
-        }
-    })
+        })
+    }else{
+        return await Videogames.findAll({
+            where:{name:name}
+        })
+    }
 }
 
-const getAll = async () =>{
+const getVideogames = async () =>{
     const apiInfo = await getApiInfo()
     const dbInfo = await getDbInfo()
     const info = apiInfo.concat(dbInfo)
@@ -68,7 +88,8 @@ const createVideogame = async (
         description,
         release,
         rating,
-        platforms        
+        platforms,
+        created:true        
     })
     const genresDb = await Genres.findAll({
         where:{name : genres}
@@ -95,4 +116,24 @@ const getDetail = async (idVideogame) =>{
     
 }
 
-module.exports = {getAll, getGenres, getDetail, createVideogame}
+const searchVideoGame = async (keyword)=>{
+    const response = await axios.get(`https://api.rawg.io/api/games?search=${keyword}&key=${API_KEY}`)
+    const data = response.data.results
+
+    let results = data.slice(0,15).map(oneGame=>{
+        return{
+            id:oneGame.id,
+            name:oneGame.name,
+            released:oneGame.released,
+            img:oneGame.background_image,
+            rating:oneGame.rating,
+            ratings_count:oneGame.ratings_count,
+            platforms:oneGame.platforms.map(e => {return {name: e.platform.name, id:e.platform.id}}),
+            genres:oneGame.genres.map(e=>e.name),
+            created:false
+        }
+    })
+    return results
+}
+
+module.exports = {getVideogames, getGenres, getDetail, createVideogame, getDbInfo, searchVideoGame}
