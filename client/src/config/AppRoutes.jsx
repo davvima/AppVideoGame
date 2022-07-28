@@ -8,6 +8,7 @@ import LandingPage from 'pages/LandingPage';
 import Details from 'pages/Details';
 import Favorites from 'pages/Favorites';
 import CreateForm from 'components/CreateForm';
+import Resultados from 'pages/Resultados';
 // import Resultados from 'pages/Resultados';
 
 function AppRoutes(){
@@ -18,6 +19,8 @@ function AppRoutes(){
             <Route path="/detalle/:gameId" element = {<Details />} />
             <Route path="/create" element = {<CreateForm />} />
             <Route path="/favoritos" element = {<Favorites />} />
+            <Route path="/search" element = {<Resultados />} />
+            
      </Routes>
     );
 }

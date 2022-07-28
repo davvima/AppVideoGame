@@ -8,7 +8,6 @@ export const favorites = createSlice({
     reducers: {
       addVideoGame: (state, action) => {
         state.push(action.payload);
-        console.log(action)
       },
       removeVideoGame: (state, action) => {
         let gameFound = state.find(game => game.id === action.payload)

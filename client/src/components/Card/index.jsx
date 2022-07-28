@@ -8,7 +8,7 @@ import { addVideoGame, removeVideoGame } from 'redux/reducer/favorites';
 import './card.css'
 
 
-function Card({name,id, rating, background_image}) {
+function Card({name,id, rating, img}) {
 
     const favorites = useSelector(state=>state.favorites)
     const dispatch = useDispatch()
@@ -25,7 +25,7 @@ function Card({name,id, rating, background_image}) {
                 name,
                 id,
                 rating,
-                background_image
+                img
             }            
             ))
         }else {
@@ -68,7 +68,7 @@ function Card({name,id, rating, background_image}) {
     //      {isHovered && (
             <div>
                 {/* {!videoKey && */}
-                <img src={background_image} alt="poster"
+                <img src={img} alt="poster"
                 className='poster' />                
                 {/* }
                 {videoKey && */}

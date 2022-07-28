@@ -15,16 +15,24 @@ export const gamesList = createSlice({
       getVideoGames: (state, action) => {
         state.gamesList = action.payload;
       },
+      addVideoGame: (state,action) => {
+        console.log("paylaodAdd" ,action.payload)
+        state.gamesList.push(action.payload)
+      }
     },
 
   });
 
 
+
+
 // Export actions
 
 export const {
-    getVideoGames
+    getVideoGames, addVideoGame
  } = gamesList.actions;
+
+ console.log(gamesList)
 
  // Export reducer
  

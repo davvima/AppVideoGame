@@ -17,10 +17,10 @@ const menu = [
         display: 'Favoritos',
         path: '/favoritos'
     },
-    // {
-    //     display: 'Acerca de',
-    //     path: '/about'
-    // }
+    {
+        display: 'Crear Videojuego',
+        path: '/create'
+    }
 ];
 
 // function handleOnClick () {

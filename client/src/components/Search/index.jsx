@@ -15,7 +15,7 @@ if(keyword.length === 0){
 
  }else{
      e.currentTarget.keyword.value = "";
-     navigate(`/results/${keyword}`)
+     navigate(`/search?name=${keyword}`)
  }
 }
 
