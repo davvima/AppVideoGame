@@ -1,5 +1,7 @@
 import { useNavigate} from "react-router-dom";
 
+import s from './search.module.css'
+
 function Search(){
 const navigate = useNavigate();
 
@@ -21,11 +23,11 @@ if(keyword.length === 0){
 
     return(
         <>       
-          <form className="d-flex align-items-center mx-2" onSubmit={submitHandler}>
-              <label className="form-label mb-0 mx-2">
-                 <input className="form-control" type="text" name="keyword" placeholder="Busqueda..." />
+          <form className={s.search} onSubmit={submitHandler}>
+              <label className="form-label">
+                 <input className="input" type="text" name="keyword" placeholder="Busqueda..." />
              </label>
-             <button className="btn btn-outline-light" type="submit">Buscar</button>
+             <button className={s.button} type="submit">Buscar</button>
          </form> 
       </>
     )

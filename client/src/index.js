@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import App from 'App';
 
 //Variables
-import {store} from 'redux/store';
+import store from 'redux/store';
 
 //Styles
 import "index.css";

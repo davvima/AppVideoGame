@@ -1,0 +1,154 @@
+.separator{
+    margin-bottom: 70px;
+}
+
+.navbar{
+    background-color: var(--second-color);
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 99;
+}
+
+.brand{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight:bolder;
+    color: var(--main-color);
+    font-size: 1.5rem;
+    width: 20%;
+}
+
+.brand img{
+    filter: invert(1);
+}
+
+.navContent{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+}
+
+.navbarGroup{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.navbarMenu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    width: 60%;
+}
+
+
+.navbarMenu a{
+    color: var(--base-color);
+    text-decoration: none;
+    margin: 1em 0;
+    font-weight: normal;
+}
+
+.toggle{
+    color:white;
+    background: none;
+    border:none;
+    font-size: 2em;
+    padding: 0 20px;
+    line-height: 60px;
+    display:none;
+    cursor:pointer
+}
+
+.active{
+    background-color:var(--main-color);
+    color:var(--second-color);
+    border-radius:10px;
+    text-align: center;
+}
+
+.active a{
+    font-weight: bold;
+    /* color:black */
+}
+
+.navItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:0 10px;
+    line-height: 1;
+    width: 100%;
+}
+
+@media (max-width:900px){
+
+    .navContent{
+        justify-content: space-between;
+        
+    }    
+   
+    .brand{
+        font-size:1.8rem;
+    }
+
+
+    .toggle{
+        display: block;
+    }
+
+    .navbarGroup{
+        position:fixed;
+        display:flex;
+        flex-direction: column-reverse;
+        align-items:center;
+        justify-content: flex-start;     
+        left:100%; 
+        text-align: center;  
+
+        padding-top: 40px;        
+        z-index: 20;
+        top:60px;
+        height:calc(100% - 80px);
+        width:70vw;
+        background-color: var(--second-color);
+        filter: opacity(0.96);
+        border-radius: 10px;
+        transition: left 0.5s;
+    }
+
+    .navbarMenu{
+        display:flex;               
+        flex-direction: column;
+        justify-content:space-around;
+        align-items: center;   
+
+        height: 100%;
+        width: 100%;
+        margin:30px;     
+        padding: 0;
+        
+    }
+
+    .navItem{
+        padding:20px 0;
+        
+    }
+
+}
+
+@media (max-width:700px){
+    .name{
+        display: none;
+    }
+
+}

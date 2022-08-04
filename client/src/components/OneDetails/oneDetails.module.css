@@ -1,0 +1,17 @@
+.description{
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 3em;
+}
+
+.image img{
+    width: 100%;
+}
+
+@media (max-width:800px){
+    .description{
+        display: flex;
+        flex-direction: column;
+    }
+
+}

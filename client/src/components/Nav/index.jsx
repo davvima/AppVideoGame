@@ -1,8 +1,9 @@
 import Search from 'components/Search';
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 
 //Styles
-// import './nav.css';
+import s from './nav.module.css';
+import logo from 'media/logo.png'
 
 const menu = [
     {
@@ -10,43 +11,46 @@ const menu = [
         path: '/inicio'
     },
     {
-        display: 'Categorías',
-        path: '/'
-    },
-    {
         display: 'Favoritos',
         path: '/favoritos'
     },
     {
-        display: 'Crear Videojuego',
+        display: 'Crear',
         path: '/create'
     }
 ];
 
-// function handleOnClick () {
-//     const navGroup = document.querySelector('.nav-group')
-//     navGroup.classList.toggle('nav_visible')
-// }
 
 function Nav (){
 
-    // const { pathname } = useLocation();
-    // const active = headerNav.findIndex(e => e.path === pathname);
+    const { pathname } = useLocation();
+    const active = menu.findIndex(e => e.path === pathname);
+
+    function handleOnClick () {
+        const navGroup = document.getElementById('navbarGroup')
+        navGroup.classList.toggle('nav_visible')
+    }
+ 
 
 
 return(
-    <nav className="navbar">
-        <div className='separador'></div>
-        <div className="nav-content">
+    <>
+    <div className={s.separator}></div>
+    <nav className={s.navbar}>
+        
+        <div className={s.navContent}>
             
-            <Link className="brand" to = "/"> VIDEOGAMES </Link>
+            <Link className={s.brand} to = "/"> 
+            <img src={logo} alt="logo"/> 
+            <div className={s.name}>PlayApp</div> 
+            </Link>
             
-            <div className='nav-group'>
-               <ul className="navbar-menu">
+            <div id= 'navbarGroup' className={s.navbarGroup}>
+               <ul className={s.navbarMenu}>
                    {
                         menu.map ((e,i) => (
                         <li key={i} 
-                        // className={`nav-item ${i === active ? 'active' : ''}`}
+                        className={s.navItem +' '+(i === active ? 'active' : '')}
                         >
                         <Link to ={e.path}> {e.display} </Link>  
                         </li>   
@@ -57,13 +61,13 @@ return(
                 <Search />
            </div>
 
-            <button className="toggle"
-                    // onClick={handleOnClick} 
-                    >
-                <i className="fa-solid fa-bars"></i>
+            <button className={s.toggle}
+                 onClick={handleOnClick}>
+                 <i className="fa-solid fa-bars"></i>
             </button>  
        </div>                               
     </nav>
+    </>
     )
 }
 

@@ -1,0 +1,25 @@
+.numberOfPages{
+    background-color: var(--second-color);
+    max-width: 900px;
+    padding: 10px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    border-radius: 20px;
+}
+
+.active{
+        padding: 20px 15px;
+        line-height: 0;
+        background: var(--main-color);
+        border-radius: 50%;
+        align-items: center;
+}
+
+.numberOfPages a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}

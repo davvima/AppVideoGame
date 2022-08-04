@@ -2,7 +2,7 @@ const { Router } = require('express');
 // const { Sequelize } = require('sequelize/types');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const {getVideogames, getGenres,createVideogame,getDetail, getDbInfo, searchVideoGame} = require('./model')
+const {getVideogames, getGenres,createVideogame,getDetail, getDbInfo, searchVideoGame, getDbDetail, getApiDetail} = require('./model')
 const router = Router();
 
 module.exports = router;
@@ -52,15 +52,22 @@ router.get(genres, async(req,res) =>{
 router.get(videogames + '/:idVideogame', async (req,res)=>{
     const {idVideogame} = req.params
     try{
-        const foundVideoGame = await getDetail(idVideogame)
-        foundVideoGame ? res.json(foundVideoGame):
+        if(idVideogame.length > 30) {
+            const foundVideoGame = await getDbDetail(idVideogame);
+            foundVideoGame ? res.json(foundVideoGame):
         res.send('Videojuego no encontrado')
+        } else {
+            const foundVideoGame = await getApiDetail(idVideogame);
+            foundVideoGame ? res.json(foundVideoGame):
+        res.send('Videojuego no encontrado')
+        };
+        
     }catch(e){
         return res.status(400).json({ error: e.message })
     }
 })
 
-////////RUTAS POST
+////////RUTA POST
 
 //videogames
 
@@ -69,25 +76,32 @@ router.post(videogames, async(req,res)=>{
         name,
         description,
         release,
+        img,
         rating,
-        genres,
-        platforms
+        platforms,
+        genres
     } = req.body
 
+    if(!name || !description) return res.status(400).json({ message: 'Nombre y descripción requerida' });
+    if(rating < 0 || rating > 5) return res.status(400).json({ message: 'Rating de ser entre 0 y 5' });
+
     try{
-    createVideogame(name,
+    const gameCreated = await createVideogame(name,
         description,
         release,
+        img,
         rating,
-        genres,
-        platforms)
+        platforms,
+        genres)
+
+
+        return res.json({gameCreated:gameCreated, message:"Videojuego creado correctamente"})
 
         
     }catch(e){
         return res.status(400).json({ error: e.message })
     }
     
-    let gameCreated = await getDbInfo(name)
-    res.json({gameCreated, message:"Videojuego creado correctamente"})
+   
     
 })

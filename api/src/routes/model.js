@@ -1,6 +1,8 @@
 const sequelize_models = require('../db')
 const axios = require('axios')
 const API_KEY = '81b401f5c0c34feeab73bb2cebf36a4e'
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const {Videogames, Genres} = sequelize_models
 
@@ -22,7 +24,7 @@ const getApiInfo = async () =>{
         return{
             id:oneGame.id,
             name:oneGame.name,
-            released:oneGame.released,
+            release:oneGame.release,
             img:oneGame.background_image,
             rating:oneGame.rating,
             ratings_count:oneGame.ratings_count,
@@ -61,44 +63,56 @@ const getVideogames = async () =>{
 }
 
 const getGenres = async () =>{
-    const apiGenres = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
-    apiGenres.data.results.map(e=>{
-
-     Genres.findOrCreate({
-            where: {
-                name:e.name,
-                image:e.image_background
-            }
-        })
-    })
+    console.log('entre al getGenres')
     const dbGenres = await Genres.findAll()
-    return(dbGenres)   
+    let genres
+    if(dbGenres.length>0){
+        genres = dbGenres.map(e=>e.name)
+    }else{
+     const apiGenres = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+
+     genres= apiGenres.data.results.map(e=>{
+            Genres.findOrCreate({
+                where: {
+                    name:e.name,
+                }
+            })
+            return e.name
+        })        
+        return genres
+
+    }    
+    return genres 
 }
 
 const createVideogame = async ( 
     name,
     description,
     release,
+    img,
     rating,
-    genres,
-    platforms) =>{
+    platforms,
+    genres) =>{
 
     const videogameToCreate = await Videogames.create({
         name,
         description,
         release,
+        img,
         rating,
         platforms,
         created:true        
     })
-    const genresDb = await Genres.findAll({
-        where:{name : genres}
-    })
 
-    videogameToCreate.addGenres(genresDb)
+   
+    
+    const genresDb = await Genres.findAll({ where: {name: {[Op.in]: genres}} })
+
+    await videogameToCreate.addGenres(genresDb)
+    return videogameToCreate
 }
 
-const getDetail = async (idVideogame) =>{
+const getApiDetail = async (idVideogame) =>{
     const apiDetail = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`)
     const data = apiDetail.data
     const detail = {
@@ -106,14 +120,39 @@ const getDetail = async (idVideogame) =>{
         name:data.name,
         img:data.background_image,
         genres:data.genres.map(e=>e.name),
-        description:data.description,
-        released:data.released,            
+        description:data.description.replace(/<[^>]+>/g, ''),
+        release:data.released,            
         rating:data.rating,
         ratings_count:data.ratings_count,
         platforms:data.platforms.map(e => {return {name: e.platform.name, id:e.platform.id}}),        
     }
     return detail
     
+}
+
+const getDbDetail = async (idVideogame)=>{
+    const base = await Videogames.findByPk(id, {
+        include: {
+            model: Genres,
+            attributes: ['name'],
+            through: {
+                attributes: [],
+            }
+        }
+    });
+
+    const detail ={
+        id:base.id,
+        name:base.name,
+        img:base.img,
+        genres:base.genres,
+        description:base.description,
+        release:base.release,            
+        rating:base.rating,
+        ratings_count:base.ratings_count,
+        platforms:base.platforms
+    }
+    return detail
 }
 
 const searchVideoGame = async (keyword)=>{
@@ -124,7 +163,7 @@ const searchVideoGame = async (keyword)=>{
         return{
             id:oneGame.id,
             name:oneGame.name,
-            released:oneGame.released,
+            release:oneGame.release,
             img:oneGame.background_image,
             rating:oneGame.rating,
             ratings_count:oneGame.ratings_count,
@@ -136,4 +175,4 @@ const searchVideoGame = async (keyword)=>{
     return results
 }
 
-module.exports = {getVideogames, getGenres, getDetail, createVideogame, getDbInfo, searchVideoGame}
+module.exports = {getVideogames, getGenres, getApiDetail, getDbDetail, createVideogame, getDbInfo, searchVideoGame}

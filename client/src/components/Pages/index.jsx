@@ -1,36 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
-const Pages = ({limit}) => {
-    const pages = [
-        {
-            display: '1',
+import s from './pages.module.css'
+
+const Pages = ({limit,length}) => {
+
+    let pages = [{
+            display: 1,
             path: '/inicio'
-        },
-        {
-            display: '2',
-            path: '?page=2&limit='+limit
-        },
-        {
-            display: '3',
-            path: '?page=3&limit='+limit
-        },
-        {
-            display: '4',
-            path: '?page=4&limit='+limit
-        },
-        {
-            display: '5',
-            path: '?page=5&limit='+limit
+        }]
+
+    for(let i = 2; i<=(Math.ceil(length/limit));i++){
+        
+        const page = {
+            display:i,
+            path: `?page=${i}&limit=${limit}`
         }
-    ];
+        pages = [...pages,page]
+    }
+
+    const [searchParams] = useSearchParams()
+    const currentPage = searchParams.get('page') ? searchParams.get('page') :1
+    const active = pages.findIndex(e => e.display === parseInt(currentPage))
+    
 
  return(
-                  <ul className="numberOfPages">
+                  <ul className={s.numberOfPages}>
                    {
                         pages.map ((e,i) => (
                         <li key={i} 
-                        // className={i === active ? 'active' : ''}
+                        className={i === active ? s.active : ''}
                         >
                         <Link to ={e.path}> {e.display} </Link>  
                         </li>   

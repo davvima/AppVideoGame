@@ -10,7 +10,8 @@ module.exports = (sequelize) => {
       allowNull:false,
       primaryKey: true
     },
-    image:{
+    
+    img:{
       type: DataTypes.STRING,
       allowNull:true
     },
@@ -25,6 +26,7 @@ module.exports = (sequelize) => {
     },
     release:{
       type: DataTypes.DATEONLY,
+      
     },
     rating:{
       type: DataTypes.FLOAT,

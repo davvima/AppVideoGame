@@ -1,0 +1,73 @@
+.poster{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;  
+    object-position: top;  
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url("media/placeholder.jpg");
+
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 20vh;
+    background-image: linear-gradient(to top, black 10%, #00000000);
+}
+
+.card{
+    height: 100%;
+    border-radius:20px;
+    box-shadow: 0 0 15px 0 var(--main-color);
+    overflow: hidden;
+    color: white;
+    transition: .5s;
+    filter: saturate(0.6);
+}
+
+.info{
+    z-index: 50;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+}
+
+.info h4{
+    color:white;
+    margin:0
+}
+
+.info button{
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: var(--main-color);
+    border-width: 1px;
+    height: 1.8em;
+    margin: 2px;
+    padding: 4px;
+    font-size: .8em;
+    color:white
+}
+
+
+
+@media (min-width: 900px){
+
+    .card:hover {
+        transform: scale(1.07);
+        background-color: #333;
+        position: absolute;
+        z-index:20;
+        filter: none;
+        right: 0;
+        left:0;        
+        }
+    }
+  

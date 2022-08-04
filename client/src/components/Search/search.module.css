@@ -1,0 +1,27 @@
+.search{
+    width:40%;
+    display:flex;
+    justify-content: space-between;
+}
+
+.search input{
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: var(--main-color);
+    border-width: 1px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    font-size: 1em;
+    width: 90%;
+}
+
+.button{
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: var(--main-color);
+    border-width: 1px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    font-size: 1em;
+    color: var(--base-color);
+}
