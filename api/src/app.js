@@ -14,10 +14,10 @@ const server = express();
 server.name = 'API';
 
 var corsOptions = {
-  origin: "*",
+  origin: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
-  optionsSuccessStatus: 204 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
 server.use(express.urlencoded({ extended: true, limit: '50mb' }));
