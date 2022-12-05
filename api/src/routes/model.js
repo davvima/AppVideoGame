@@ -63,7 +63,6 @@ const getVideogames = async () =>{
 }
 
 const getGenres = async () =>{
-    console.log('entre al getGenres')
     const dbGenres = await Genres.findAll()
     let genres
     if(dbGenres.length>0){
@@ -131,7 +130,7 @@ const getApiDetail = async (idVideogame) =>{
 }
 
 const getDbDetail = async (idVideogame)=>{
-    const base = await Videogames.findByPk(id, {
+    const base = await Videogames.findByPk(idVideogame, {
         include: {
             model: Genres,
             attributes: ['name'],
