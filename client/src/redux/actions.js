@@ -2,7 +2,7 @@ import axiosClient from "config/axiosClient";
 
 export const getVideoGames = () => {
     return async function(dispatch) {
-        const response = await axiosClient.get('http://localhost:3001/videogames');
+        const response = await axiosClient.get('/videogames');
 
         return dispatch({
             type: 'GET_GAMES',
@@ -13,7 +13,7 @@ export const getVideoGames = () => {
 
 export const getGenres = () => {
     return async function(dispatch) {
-        const response = await axiosClient.get('http://localhost:3001/genres')
+        const response = await axiosClient.get('/genres')
             return dispatch({
                 type: 'GET_GENRES',
                 payload: response
@@ -21,38 +21,29 @@ export const getGenres = () => {
     };
 };
 
-// export const getQuery = (input) => {
-//     return function(dispatch) {
-//         return fetch(`http://localhost:3001/videogames?name=${input}`)
-//         .then((r) => r.response())
-//         .then((response) => {
-//             return dispatch({
-//                 type: 'GET_QUERY',
-//                 payload: response
-//             });
-//         });
-//     };
-// };
-
 export const getDetails = (id) => {
     return async function(dispatch) {
-        var response = await axiosClient('http://localhost:3001/videogames/' + id);
-        console.log('response',response)
+          if(id){
+        var response = await axiosClient('/videogames/' + id);
         return dispatch({
             type: 'GET_DETAILS',
             payload: response
         });      
-    };
+        }else{
+            return dispatch({
+                type: 'GET_DETAILS',
+                payload: {}
+            });  
+         }
 };
 
 export const postVideoGame = (body) => {
     return async function(dispatch) {
         var response = await axiosClient({
             method: 'post',
-            url: 'http://localhost:3001/videogames',
+            url: '/videogames',
             data: body
         })
-        console.log(response)
         return dispatch({
             type: 'POST_GAME',
             payload:response
@@ -61,16 +52,7 @@ export const postVideoGame = (body) => {
 };
 
 
-
-// export const setLoading = () => {
-//     return {
-//         type: SET_LOADING,
-//     };
-// };
-
-
 export const sortList = (payload) => {
-    console.log('soy action', payload)
     return {
         type: 'SORT_LIST',
         payload,
@@ -95,5 +77,20 @@ export const filterList =(payload) => {
     return{
         type:'FILTER_LIST',
         payload
+    }
+}
+
+//FAVORITES
+export const addFavorites = (obj) =>{
+    return{
+        type:'ADD_FAVORITE',
+        payload:obj
+    }
+}
+
+export const removeFavorites = (id) =>{
+    return{
+        type:'REMOVE_FAVORITE',
+        payload:id
     }
 }

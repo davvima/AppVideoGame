@@ -53,8 +53,6 @@ const CreateForm = () => {
           ...input,
           [e.target.name] : e.target.value
         }))
-        console.log('errors',errors)
-        console.log(input)
 
     }
 
@@ -94,8 +92,8 @@ const CreateForm = () => {
     }
 
     return (
-      <>
-      <br />
+  
+      <div className={s.container}>
       <h1>¡Crea tu Videojuego!</h1>
 
         <form className={s.form} onSubmit={handleSubmit}>
@@ -223,7 +221,7 @@ const CreateForm = () => {
       <input disabled={Object.entries(errors).length === 0?false:true} type="submit" value="Submit" />
     </form>
 
-    </>
+    </div>
     );
 };
 

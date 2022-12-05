@@ -6,7 +6,6 @@ import List from 'components/List';
 const Resultados = () => {
     const [searchParams]=useSearchParams()
     const keyword = searchParams.get('name')
-    console.log("keyword",keyword)
 
     const[results, setResults] = useState([]) 
 

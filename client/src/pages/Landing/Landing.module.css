@@ -6,37 +6,42 @@
 
 .sectionOne{
     display: flex;
+    justify-content: center;
     margin-bottom: 80px;
     margin-top: 50px;
+
 }
 
 .sectionOne div{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 
 .sectionOne h1{
+    color: var(--base-color);
+    text-shadow: 3px 3px 3px black;
     font-size: 4rem;
     margin: 0;
+    text-align: center;
 }
 
 .sectionOne h2{
     font-size: 1.3rem;
     font-weight: normal;
+    color:white;
+    
+    background-color: var(--main-color);
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .button{
     display: flex;
     justify-content: center;
-}
-
-.womanPlaying{
-    transform:rotateY(180deg);
-    object-fit: cover;
-    width: 40%;
+    margin: 60px;
 }
 
 .sectionTwo{
@@ -47,17 +52,38 @@
 }
 
 .play{
-    width: 35%;
+    width: 100%;
     padding: 30px;
     object-fit: contain;
 }
 
 .sectionTwo div{
-    color:var(--base-color);
-    padding:30px;
+    color: var(--base-color);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.video{
+  position:absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  filter: brightness(0.7);
+  min-height: 80vh;
+  object-fit: cover;
 }
 
 @media (max-width: 750px){
+    .sectionOne h1{
+        font-size: 3rem;
+    }
+    
+    .sectionOne h2{
+        font-size: 1.2rem;
+    }
     .womanPlaying{
         display: none;
     }

@@ -45,7 +45,7 @@ const FilterAndSort = () => {
                 </select>
             </form>
 
-            <Genres listOfGenres={genres}/>
+            <Genres listOfGenres={genres} all={true}/>
     </div>
 
     );

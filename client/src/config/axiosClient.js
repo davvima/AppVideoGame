@@ -14,7 +14,6 @@ const axiosClient = axios.create({
     }else  return response;
     
 }, (error) => {
-    console.log(error)
     alert(error)
 })
 

@@ -1,0 +1,13 @@
+.container{
+    background-color: var(--main-color);
+    color: var(--second-color);
+    inline-size: fit-content;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 1rem;
+    line-height: 0;
+}
+
+.container h3{
+    margin: 0;
+}

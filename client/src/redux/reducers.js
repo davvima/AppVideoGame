@@ -19,7 +19,6 @@ let initialState = {
             gamesList: action.payload,
           };
         case 'GET_GENRES':
-          console.log('genresReducer',action.payload)
           return {
             ...state,
             genres: action.payload
@@ -31,12 +30,6 @@ let initialState = {
           details:action.payload
          }
 
-        // case 'SET_LOADING': 
-        //   return {
-        //     ...state,
-        //     loading: !state.loading
-        //   };
-
         case 'SORT_LIST':
           const sortedList= sortListByType(state.gamesList,action.payload) 
           return {
@@ -44,45 +37,33 @@ let initialState = {
             gamesList: sortedList
           };
 
-        // case 'SORT_BY_RATING':
-        //   return {
-        //     ...state, 
-        //     gamesLoad: sortRating(action.payload, state.gamesLoad),
-        //     pageReference: 0
-        //   };
-
         case 'FILTER_BY_GENRE': 
         
           const filteredGames = action.payload==='All'? state.apiDbGames: state.apiDbGames.filter(e=>e.genres.includes(action.payload))
-          console.log('reducer',action.payload)
           return {
             ...state, 
             gamesList: filteredGames
           };
 
-          case 'FILTER_LIST': 
+        case 'FILTER_LIST': 
        
           const createdFilter = filterGames(state.apiDbGames,action.payload)  
-          console.log('created', createdFilter)
           return {
             ...state, 
             gamesList: action.payload==='all'?state.apiDbGames:createdFilter
           };
 
-          case 'POST_GAME': 
+        case 'POST_GAME': 
             return {...state};
 
-          // case GET_BASE:
-          //   return {
-          //     ...state,
-          //     gamesLoad: action.payload,
-          //     gamesLoaded: action.payload,
-          //     loading: false,
-          //     pageReference: 0,
-          //     reference: 'Owns'
-            // };
-      //     case DELETE_GAME: 
-      //       return {...state};
+        case 'ADD_FAVORITE':
+          return {...state,
+          favorites:[...state.favorites,action.payload]}
+
+        case 'REMOVE_FAVORITE':
+          return {...state,
+          favorites:state.favorites.filter(e=>e.id !== action.payload)}
+         
           default: return state;
       // };
 

@@ -1,5 +1,5 @@
 import OneDetails from 'components/OneDetails';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -10,21 +10,25 @@ const Details = () => {
     const {gameId} = useParams();
     const dispatch = useDispatch()
     const details = useSelector(state=>state.details)
+    const [oneDetails, setOneDetails] =useState({})
+    console.log(details)
 
-    let { id, img, name, genres, description, release, rating, platforms } = details;
-
-//    if(description.slice(0,3)==='<p>'){
-//     description = description.slice(3,-3)
-//     console.log(description)
-//    }
+    let { id, img, name, genres, description, release, rating, ratings_count, platforms } = oneDetails;
+    
 
     useEffect(()=>{
-      dispatch(getDetails(gameId))
-    },[dispatch,gameId])
+      if(Object.entries(details).length===0) dispatch(getDetails(gameId))
+      setOneDetails(details)
+      
+    },[dispatch,gameId,details])
+
+    useEffect(()=>{
+        return ()=> dispatch(getDetails())
+       },[dispatch]) 
+
 
     return (
-        <div>
-            {console.log(details)}
+        <>
                 {name && <OneDetails
                 id={id}
                 img={img ? img : 'notImage'}
@@ -34,11 +38,12 @@ const Details = () => {
                 release={release}
                 rating={rating}
                 platforms={platforms}
+                ratings_count={ratings_count}
             /> }
 
             
             
-        </div>
+        </>
     );
 };
 

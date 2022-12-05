@@ -20,7 +20,6 @@ export const sortListByType = (listToSort, type)=>{
          newList=listToSort
          break;       
       }     
-      console.log('newList', newList)
       return newList       
     }
   

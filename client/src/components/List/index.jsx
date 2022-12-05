@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import s from './list.module.css'
 
 const List = ({listOfItems}) => {
+  console.log('soyList',listOfItems)
 
   const [searchParams] = useSearchParams()
   const query ={
@@ -22,7 +23,6 @@ const List = ({listOfItems}) => {
     listToRender =listOfItems.slice(0,query.limit)
   }
 
-  console.log("listToRender", listToRender)
 
     return (
         <>      

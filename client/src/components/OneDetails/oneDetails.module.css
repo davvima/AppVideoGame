@@ -1,11 +1,110 @@
+.container{
+    margin-top: 20vh;
+}
+
 .description{
     display: grid;
     grid-template-columns: 3fr 2fr;
     gap: 3em;
 }
 
+.text >button{
+    background: none;
+    border:none;
+    text-decoration:underline;
+    color: var(--main-color);
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0;
+    cursor: pointer;
+}
+
+.text{
+    background-color: var(--base-color);
+    border-radius: 20px;
+    padding: 1.2em;
+    box-shadow: 0 0 15px 0 var(--main-color);
+}
+
 .image img{
     width: 100%;
+    border-radius: 100px 0;
+    height: 50vh;
+    object-fit: cover;
+    object-position: top;
+}
+
+.background {
+    height: 60vh;
+    width: 100%;
+    margin: auto;
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    left: 0;
+    top: 60px;
+    z-index: -1;
+}
+
+.background::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #00000060
+    }
+
+.background::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        background-image: linear-gradient(to top, var(--second-color)50%, #00000000);
+        filter: saturate(0.5);
+}
+
+.backgroundContainer{
+    position: relative
+}
+
+.title{
+    color: var(--base-color);
+    text-shadow: 4px 2px 3px var(--second-color);
+}
+
+.sectionTwo{
+    background-color: var(--second-color);
+    position: absolute;
+    top: 60vh;
+    left:0;
+    right: 0;
+    z-index: -1;
+}
+
+.sectionContainer{
+    padding: 50px;
+    padding-top: 200px;
+    color: white;
+    max-width: 50%;
+}
+
+.platforms{
+    display: flex;
+    flex-wrap: wrap;
+    gap:20px
+}
+
+.platforms h4{
+    margin: 0;
+}
+
+.platforms div{
+    height: fit-content;
 }
 
 @media (max-width:800px){
