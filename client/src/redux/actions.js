@@ -35,7 +35,7 @@ export const getDetails = (id) => {
                 payload: {}
             });  
          }
-};
+}}
 
 export const postVideoGame = (body) => {
     return async function(dispatch) {
