@@ -21,7 +21,7 @@ const Home = () => {
       <>
       <FilterAndSort />  
       <List listOfItems={gamesList}/> 
-      <Pages limit={15} length={gamesList.length} ></Pages>
+      <Pages limit={15} length={gamesList?.length} ></Pages>
     </>
   );
 };
